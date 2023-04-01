@@ -1,0 +1,10 @@
+.full-height {
+  height: 92.9vh;
+}
+
+.bg-img {
+  background-image: url("../../../assets/bg.png");
+  background-position: right;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
