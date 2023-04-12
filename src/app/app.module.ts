@@ -12,7 +12,8 @@ import { PatientService } from './services/patient.service';
 import { NumberDirective } from './directives/number.directive';
 import { LoginComponent } from './components/login/login.component';
 import { authGuard } from './guards/auth.guard';
-
+import { SummaryComponent } from './components/summary/summary.component';
+  
 const appRoutes: Routes = [
   { path: '', redirectTo: 'patients', pathMatch: 'full' },
   { path: 'patients', component: PatientComponent, canActivate: [authGuard] },
@@ -28,6 +29,7 @@ const appRoutes: Routes = [
     PatientComponent,
     NumberDirective,
     LoginComponent,
+    SummaryComponent,
   ],
   imports: [
     BrowserModule,

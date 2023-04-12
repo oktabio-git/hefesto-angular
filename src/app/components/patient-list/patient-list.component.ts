@@ -1,9 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Patient } from 'src/app/interfaces/patient';
 
 @Component({
@@ -35,10 +31,24 @@ export class PatientListComponent implements OnInit {
     }
   }
 
+  getAge(date: string): number {
+    let bdate = new Date(date);
+    let today = new Date();
+    let age = today.getFullYear() - bdate.getFullYear();
+    let m = today.getMonth() - bdate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < bdate.getDate())) {
+      age--;
+    }
+    return age;
+  }
+
+  getInitials(name: string, lastName: string): string {
+    return name.charAt(0) + lastName.charAt(0);
+  }
+
   get name() {
     return this.patientForm.get('name');
   }
-
   get lastName() {
     return this.patientForm.get('lastName');
   }

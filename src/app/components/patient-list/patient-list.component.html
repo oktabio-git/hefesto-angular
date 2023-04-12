@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <div class="row py-2">
+  <div class="row py-3">
     <div class="col-6">
       <ul class="nav">
         <li class="nav-item">
@@ -16,7 +16,7 @@
     <div class="col-6 d-flex justify-content-end">
       <div class="dropdown me-2">
         <button
-          class="btn btn-primary dropdown-toggle"
+          class="btn btn-outline-primary dropdown-toggle"
           type="button"
           data-bs-toggle="dropdown"
           aria-expanded="false"
@@ -41,13 +41,36 @@
   </div>
   <div class="row">
     <div *ngFor="let patient of patients" class="col-12">
-      <div class="card border-secondary mb-3">
-        <div class="card-body">
-          <h5 class="card-title">Info card title</h5>
-          <p class="card-text">
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
-          </p>
+      <div class="card mb-3">
+        <div class="card-body p-1">
+          <div class="row">
+            <div class="col-1 ps-3 pe-0 d-flex justify-content-center align-items-center">
+              <div class="initials bg-primary">
+                {{ getInitials(patient.name, patient.lastName) }}
+              </div>
+            </div>
+            <div class="col-3 ps-2">
+              <p class="h6 m-0">{{ patient.name + " " + patient.lastName }}</p>
+              <p class="small text-muted m-0">
+                {{ getAge(patient.birthDate) }} years
+              </p>
+              <p class="small text-muted m-0">
+                DOB: {{ patient.birthDate | date }}
+              </p>
+            </div>
+            <div class="col-2">
+              <p class="small text-muted m-0">Blood Group</p>
+              <p class="h6 m-0">AB</p>
+            </div>
+            <div class="col-3">
+              <p class="small text-muted m-0">Alergies</p>
+              <p class="h6 m-0">None</p>
+            </div>
+            <div class="col-3 px-0">
+              <p class="small text-muted m-0">Next Appointment</p>
+              <p class="h6 m-0">June 12th, 2024</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -109,7 +132,9 @@
               required
             />
             <div
-              *ngIf="lastName?.invalid && (lastName?.dirty || lastName?.touched)"
+              *ngIf="
+                lastName?.invalid && (lastName?.dirty || lastName?.touched)
+              "
               class="invalid-feedback"
             >
               <div *ngIf="lastName?.errors?.['required']">
@@ -130,7 +155,9 @@
               required
             />
             <div
-              *ngIf="birthdate?.invalid && (birthdate?.dirty || birthdate?.touched)"
+              *ngIf="
+                birthdate?.invalid && (birthdate?.dirty || birthdate?.touched)
+              "
               class="invalid-feedback"
             >
               <div *ngIf="birthdate?.errors?.['required']">

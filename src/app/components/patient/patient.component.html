@@ -5,7 +5,23 @@
       <app-patient-list [patients]="patients"></app-patient-list>
     </div>
     <div class="col-5">
-      <!-- Insert here selector for summary column -->
+      <app-summary></app-summary>
+    </div>
+  </div>
+  <div class="row">
+    <div class="empty text-center p-5">
+      <p class="text-muted">No registered patients were found.</p>
+      <p class="text-muted">
+        To add a new patient, please click on the button below.
+      </p>
+      <button
+        type="button"
+        class="btn btn-primary"
+        data-bs-toggle="modal"
+        data-bs-target="#staticBackdrop"
+      >
+        New Patient
+      </button>
     </div>
   </div>
 </div>

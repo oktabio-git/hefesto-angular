@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -7,15 +8,31 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
-  password: boolean = false;
+  passIcon: boolean = false;
+  loginForm: FormGroup = this._fb.group({
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', Validators.required],
+  });
 
-  constructor(private _router: Router) {}
+  constructor(private _router: Router, private _fb: FormBuilder) {}
 
   onSubmit(): void {
-    this._router.navigate(['/patients']);
+    if (this.loginForm.valid) {
+      this._router.navigate(['/patients']);
+    } else {
+      console.log(this.loginForm);
+      this.loginForm.markAllAsTouched();
+    }
   }
 
   showHide(): void {
-    this.password = !this.password;
+    this.passIcon = !this.passIcon;
+  }
+
+  get email() {
+    return this.loginForm.get('email');
+  }
+  get password() {
+    return this.loginForm.get('password');
   }
 }

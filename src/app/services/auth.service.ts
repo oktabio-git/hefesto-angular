@@ -15,7 +15,7 @@ export class AuthService {
 
   isAuthenticated(): boolean {
     const token = localStorage.getItem('token');
-    return false;
+    return true;
   }
 
   login(username: string, password: string): Observable<any> {
