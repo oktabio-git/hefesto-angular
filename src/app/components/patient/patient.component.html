@@ -1,27 +1,85 @@
 <app-navbar></app-navbar>
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-7">
-      <app-patient-list [patients]="patients"></app-patient-list>
+  <div class="row" *ngIf="patients.length > 0; else elseBlock">
+    <div class="col-8">
+      <app-patient-list
+        [patients]="patients"
+        (patientEvent)="getPaitentData($event)"
+      ></app-patient-list>
     </div>
-    <div class="col-5">
-      <app-summary></app-summary>
+    <div class="col-4">
+      <div class="container-fluid">
+        <div class="row py-2" *ngIf="option != 0; else elseSummaryBlock">
+          <div class="col-12">
+            <ul class="nav">
+              <li class="nav-item">
+                <a
+                  class="nav-link cursor-pointer"
+                  [ngClass]="option == 1 ? 'active' : ''"
+                  (click)="option = 1"
+                  >Summary</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link cursor-pointer"
+                  [ngClass]="option == 2 ? 'active' : ''"
+                  (click)="option = 2"
+                  >Appointments</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link cursor-pointer"
+                  [ngClass]="option == 3 ? 'active' : ''"
+                  (click)="option = 3"
+                  >Medications</a
+                >
+              </li>
+            </ul>
+          </div>
+          <hr />
+        </div>
+        <div class="row small">
+          <app-summary *ngIf="option == 1" [patient]="patient"></app-summary>
+          <app-appointments
+            *ngIf="option == 2"
+            [patient]="patient"
+            [vSigns]="vSigns"
+          ></app-appointments>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="row">
-    <div class="empty text-center p-5">
-      <p class="text-muted">No registered patients were found.</p>
-      <p class="text-muted">
-        To add a new patient, please click on the button below.
-      </p>
-      <button
-        type="button"
-        class="btn btn-primary"
-        data-bs-toggle="modal"
-        data-bs-target="#staticBackdrop"
-      >
-        New Patient
-      </button>
+  <ng-template #elseBlock class="row">
+    <div
+      class="empty text-center mt-3 d-flex align-items-center justify-content-center"
+    >
+      <div class="content">
+        <p class="text-muted">No registered patients were found.</p>
+        <p class="text-muted">
+          To add a new patient, please click on the button below.
+        </p>
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#staticBackdrop"
+        >
+          New Patient
+        </button>
+      </div>
     </div>
-  </div>
+  </ng-template>
+  <ng-template #elseSummaryBlock class="row">
+    <div
+      class="empty text-center mt-3 d-flex align-items-center justify-content-center px-5"
+    >
+      <div class="content">
+        <p class="text-muted">
+          To display details, please select an item from the left side.
+        </p>
+      </div>
+    </div>
+  </ng-template>
 </div>

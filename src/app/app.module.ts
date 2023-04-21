@@ -13,7 +13,13 @@ import { NumberDirective } from './directives/number.directive';
 import { LoginComponent } from './components/login/login.component';
 import { authGuard } from './guards/auth.guard';
 import { SummaryComponent } from './components/summary/summary.component';
-  
+import { AppointmentsComponent } from './components/appointments/appointments.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { DecimalDirective } from './directives/decimal.directive';
+import { MatDialogModule } from '@angular/material/dialog';
+import { VitalSignsDialogComponent } from './components/dialogs/vital-signs-dialog-component';
+
 const appRoutes: Routes = [
   { path: '', redirectTo: 'patients', pathMatch: 'full' },
   { path: 'patients', component: PatientComponent, canActivate: [authGuard] },
@@ -28,14 +34,20 @@ const appRoutes: Routes = [
     PatientListComponent,
     PatientComponent,
     NumberDirective,
+    DecimalDirective,
     LoginComponent,
     SummaryComponent,
+    AppointmentsComponent,
+    VitalSignsDialogComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     RouterModule.forRoot(appRoutes),
     ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatSnackBarModule,
+    MatDialogModule,
   ],
   providers: [PatientService],
   bootstrap: [AppComponent],

@@ -1,0 +1,105 @@
+<h2 mat-dialog-title>New Vitals Record</h2>
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="vSignsForm" novalidate>
+    <div class="form-group mb-3">
+      <label class="form-label">Temperature</label>
+      <input
+        type="text"
+        class="form-control"
+        formControlName="temperature"
+        [ngClass]="{
+          'is-invalid': temperature?.touched && temperature?.errors,
+          'is-valid': temperature?.valid
+        }"
+        maxlength="4"
+        numberAndDecimal
+        required
+      />
+      <div
+        *ngIf="
+          temperature?.invalid && (temperature?.dirty || temperature?.touched)
+        "
+        class="invalid-feedback"
+      >
+        This field is required.
+      </div>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Heart Rate</label>
+      <input
+        type="text"
+        class="form-control"
+        [ngClass]="{
+          'is-invalid': heartRate?.touched && heartRate?.errors,
+          'is-valid': heartRate?.valid
+        }"
+        formControlName="heartRate"
+        maxlength="3"
+        numbersOnly
+        required
+      />
+      <div
+        *ngIf="heartRate?.invalid && (heartRate?.dirty || heartRate?.touched)"
+        class="invalid-feedback"
+      >
+        <div *ngIf="heartRate?.errors?.['required']">
+          This field is required.
+        </div>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Systolic</label>
+      <input
+        type="text"
+        class="form-control"
+        [ngClass]="{
+          'is-invalid': systolic?.touched && systolic?.errors,
+          'is-valid': systolic?.valid
+        }"
+        formControlName="systolic"
+        maxlength="3"
+        numbersOnly
+        required
+      />
+      <div
+        *ngIf="systolic?.invalid && (systolic?.dirty || systolic?.touched)"
+        class="invalid-feedback"
+      >
+        <div *ngIf="systolic?.errors?.['required']">
+          This field is required.
+        </div>
+      </div>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Diastolic</label>
+      <input
+        type="text"
+        class="form-control"
+        [ngClass]="{
+          'is-invalid': diastolic?.touched && diastolic?.errors,
+          'is-valid': diastolic?.valid
+        }"
+        formControlName="diastolic"
+        maxlength="3"
+        numbersOnly
+        required
+      />
+      <div
+        *ngIf="diastolic?.invalid && (diastolic?.dirty || diastolic?.touched)"
+        class="invalid-feedback"
+      >
+        <div *ngIf="diastolic?.errors?.['required']">
+          This field is required.
+        </div>
+      </div>
+    </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end" class="px-4 pb-4">
+  <button type="button" class="btn btn-secondary me-2" (click)="onNoClick()">
+    Cancel
+  </button>
+  <button type="button" class="btn btn-primary" (click)="onSubmit()">
+    Save
+  </button>
+</mat-dialog-actions>
