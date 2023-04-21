@@ -19,10 +19,14 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { DecimalDirective } from './directives/decimal.directive';
 import { MatDialogModule } from '@angular/material/dialog';
 import { VitalSignsDialogComponent } from './components/dialogs/vital-signs-dialog-component';
+import { DiagnosisListComponent } from './components/diagnosis-list/diagnosis-list.component';
+import { DiagnosisService } from './services/diagnosis.service';
+import { DiagnosisComponent } from './components/diagnosis/diagnosis.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'patients', pathMatch: 'full' },
   { path: 'patients', component: PatientComponent, canActivate: [authGuard] },
+  { path: 'diagnosis/:patientId', component: DiagnosisListComponent, canActivate: [authGuard] },
   { path: 'login', component: LoginComponent },
   { path: '**', redirectTo: 'login' },
 ];
@@ -39,6 +43,8 @@ const appRoutes: Routes = [
     SummaryComponent,
     AppointmentsComponent,
     VitalSignsDialogComponent,
+    DiagnosisListComponent,
+    DiagnosisComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +55,7 @@ const appRoutes: Routes = [
     MatSnackBarModule,
     MatDialogModule,
   ],
-  providers: [PatientService],
+  providers: [PatientService, DiagnosisService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
