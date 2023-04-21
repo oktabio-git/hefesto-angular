@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Patient } from 'src/app/interfaces/patient';
 
@@ -9,6 +9,7 @@ import { Patient } from 'src/app/interfaces/patient';
 })
 export class PatientListComponent implements OnInit {
   @Input() patients: Patient[] = [];
+  @Output() patientEvent = new EventEmitter<Patient>();
   myModal: any;
   patientForm: FormGroup = this._fb.group({
     name: ['', Validators.required],
@@ -44,6 +45,10 @@ export class PatientListComponent implements OnInit {
 
   getInitials(name: string, lastName: string): string {
     return name.charAt(0) + lastName.charAt(0);
+  }
+
+  getPatientData(patient: Patient) {
+    this.patientEvent.emit(patient);
   }
 
   get name() {

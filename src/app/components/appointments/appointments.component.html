@@ -1,0 +1,51 @@
+<div class="col-12">
+  <div class="row">
+    <div class="col-7">
+      <label *ngIf="vSigns; else nodata">
+        Vital Signs on <b>{{ vSigns.date | date : "longDate" }}</b>
+      </label>
+      <ng-template #nodata>No vital signs added yet.</ng-template>
+    </div>
+    <div class="col-5 d-flex justify-content-end" *ngIf="vSigns">
+      <a class="fw-bold" href="">View List</a>
+    </div>
+  </div>
+
+  <table class="table table-striped">
+    <tbody>
+      <tr>
+        <th>Temperature</th>
+        <td>{{ vSigns.temperature || "N/A" }}</td>
+      </tr>
+      <tr>
+        <th>Heart Rate</th>
+        <td>{{ vSigns.heartRate || "N/A" }}</td>
+      </tr>
+      <tr>
+        <th>Systolic</th>
+        <td>{{ vSigns.systolic || "N/A" }}</td>
+      </tr>
+      <tr>
+        <th>Diastolic</th>
+        <td>{{ vSigns.diastolic || "N/A" }}</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="d-flex justify-content-end">
+    <button
+      type="button"
+      class="btn btn-primary me-2"
+      (click)="openDialog()"
+    >
+      New Vital Record
+    </button>
+    <button
+      *ngIf="vSigns"
+      type="button"
+      class="btn btn-outline-primary"
+      (click)="openEditDialog()"
+    >
+      Edit Last Record
+    </button>
+  </div>
+</div>
