@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Patient } from 'src/app/interfaces/patient';
+import { PatientService } from 'src/app/services/patient.service';
 
 @Component({
   selector: 'app-patient-list',
@@ -11,6 +12,7 @@ export class PatientListComponent implements OnInit {
   @Input() patients: Patient[] = [];
   @Output() patientEvent = new EventEmitter<Patient>();
   myModal: any;
+  
   patientForm: FormGroup = this._fb.group({
     name: ['', Validators.required],
     lastName: ['', Validators.required],
@@ -19,7 +21,7 @@ export class PatientListComponent implements OnInit {
     phone: ['', [Validators.required, Validators.minLength(10)]],
   });
 
-  constructor(private _fb: FormBuilder) {}
+  constructor(private _fb: FormBuilder, private _patientService: PatientService) {}
 
   ngOnInit(): void {}
 
@@ -49,6 +51,7 @@ export class PatientListComponent implements OnInit {
 
   getPatientData(patient: Patient) {
     this.patientEvent.emit(patient);
+    this._patientService.setPatient(patient);
   }
 
   get name() {

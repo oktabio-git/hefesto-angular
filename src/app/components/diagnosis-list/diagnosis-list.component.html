@@ -1,0 +1,124 @@
+<app-navbar></app-navbar>
+<div class="container is-fluid">
+    <div class="row">
+      <div class="col mt-2">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a routerLink="/patients">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Diagnosis</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+    <div class="row py-3">
+      <div class="col">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">
+              {{ selectedPatient.name + ' ' + selectedPatient.lastName }}
+            </h5>
+            
+            <div class="row">
+              <div class="col-4">
+                <span class="card-text">
+                  Blood type: AB+
+                </span>
+              </div>
+              <div class="col-4">
+                <span class="card-text">
+                  Nss: {{ selectedPatient.socialSecurityNumber }}
+                </span>
+              </div>
+              <div class="col-4">
+                <span class="card-text">
+                  Phone number: {{ selectedPatient.phone }}
+                </span>
+              </div>
+            </div>
+
+            <div class="row mt-2">
+              <div class="col-4">
+                <span class="card-text">
+                  Birthdate: {{ selectedPatient.birthDate }}
+                </span>
+              </div>
+              <div class="col-4">
+                <span class="card-text">
+                  Age: 30
+                </span>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ng-template [ngIf]="diagnosis.length < 1">
+        <div class="row show py3">
+            <div class="col d-flex justify-content-center align-items-center ">
+                <p class="lead">
+                    No rows to show
+                  </p>
+            </div>
+        </div>
+    </ng-template>
+
+    <ng-template [ngIf]="diagnosis.length > 0">
+        <div class="row">
+            <div *ngFor="let item of diagnosis" class="col-12">
+              <div class="card mb-3 ">
+                <div class="card-body p-2">
+                  <div class="row ps-2">
+                    <div class="col-2 ps-2">
+                      <p class="small text-muted m-0">Condition</p>
+                      <p class="h6 m-0">{{ item.condition }}</p>
+                    </div>
+                    <div class="col-4">
+                      <p class="small text-muted m-0">Diagnosis</p>
+                      <p class="h6 m-0 text-justify">{{ item.diagnosis }}</p>
+                    </div>
+                    <div class="col-3">
+                      <p class="small text-muted m-0">Treatment</p>
+                      <p class="h6 m-0">{{ item.treatment }}</p>
+                    </div>
+                    <div class="col-3">
+                      <p class="small text-muted m-0">Appointment</p>
+                      <p class="h6 m-0">{{ item.createdAt | date: 'dd/MM/yyyy, h:mm a'}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <nav aria-label="Page navigation example">
+                <ul class="pagination d-flex justify-content-cente">
+                  <li class="page-item">
+                    <a class="page-link pe-pointer" (click)="changePage(0)" aria-label="Previous">
+                      <span aria-hidden="true">&laquo;</span>
+                    </a>
+                  </li>
+                  
+                  <li  class="page-item" *ngFor="let item of [].constructor(this.pagedDiagnosisList.totalPages); let i = index ">
+                    <a [ngClass]="i === pageNumber ? 'page-link pe-pointer active': 'page-link pe-pointer'" (click)="changePage(i)">
+                      {{ i + 1 }} 
+                    </a>
+                  </li>
+
+                  <li class="page-item">
+                    <a class="page-link pe-pointer" (click)="changePage(this.pagedDiagnosisList.totalPages - 1)" aria-label="Next">
+                      <span aria-hidden="true">&raquo;</span>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+          
+    </ng-template>
+</div>
+  
+
+  
