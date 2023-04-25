@@ -1,0 +1,22 @@
+<nav aria-label="Page navigation">
+    <ul class="pagination d-flex justify-content-cente">
+      <li class="page-item">
+        <a class="page-link pe-pointer" (click)="changePage(startPage)" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+      
+      <li  class="page-item" *ngFor="let item of [].constructor(totalPages); let i = index ">
+        <a class="page-link pe-pointer" [ngClass]="i === pageNumber ? ' active': ''" (click)="changePage(i)">
+          {{ i + 1 }} 
+        </a>
+      </li>
+
+      <li class="page-item">
+        <a class="page-link pe-pointer" (click)="changePage(totalPages - 1)" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+    </ul>
+</nav>
+
