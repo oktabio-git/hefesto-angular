@@ -1,4 +1,4 @@
-<app-navbar></app-navbar>
+<!-- <app-navbar></app-navbar> -->
 <div class="container is-fluid">
     <div class="row">
       <div class="col mt-2">
@@ -91,34 +91,11 @@
               </div>
             </div>
           </div>
+          
           <div class="row">
             <div class="col">
-              <nav aria-label="Page navigation example">
-                <ul class="pagination d-flex justify-content-cente">
-                  <li class="page-item">
-                    <a class="page-link pe-pointer" (click)="changePage(0)" aria-label="Previous">
-                      <span aria-hidden="true">&laquo;</span>
-                    </a>
-                  </li>
-                  
-                  <li  class="page-item" *ngFor="let item of [].constructor(this.pagedDiagnosisList.totalPages); let i = index ">
-                    <a [ngClass]="i === pageNumber ? 'page-link pe-pointer active': 'page-link pe-pointer'" (click)="changePage(i)">
-                      {{ i + 1 }} 
-                    </a>
-                  </li>
-
-                  <li class="page-item">
-                    <a class="page-link pe-pointer" (click)="changePage(this.pagedDiagnosisList.totalPages - 1)" aria-label="Next">
-                      <span aria-hidden="true">&raquo;</span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
+              <app-pagination [totalPages]="this.pagedDiagnosisList.totalPages" (changePageEvent)="changePage($event)"></app-pagination>
             </div>
           </div>
-          
     </ng-template>
 </div>
-  
-
-  

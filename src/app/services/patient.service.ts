@@ -18,6 +18,11 @@ export class PatientService {
   }
 
   getPatients(): Observable<Patient[]> {
+    const ofPatient = of([
+      { id:1, name: 'Jose', lastName:'Galinier', socialSecurityNumber: '07-95-75-9554-8', phone:'8443655306', birthDate: '05/05/1990' },
+      { id:2, name: 'Ivan', lastName:'Cano', socialSecurityNumber: '09-95-75-5555-8', phone:'84454655306', birthDate: '06/06/1986' }
+    ]);
+    return ofPatient;
     return this._http.get(this.patientUrl).pipe(
       map((response) => {
         return response as Patient[];

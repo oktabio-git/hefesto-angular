@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Route } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Diagnosis } from 'src/app/interfaces/diagnosis';
 import { DiagnosisService } from 'src/app/services/diagnosis.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PatientService } from 'src/app/services/patient.service';
-import { filter, single, switchMap } from 'rxjs';
+import { filter, switchMap } from 'rxjs';
 import { Patient } from '../../interfaces/patient';
 import { PagedList } from 'src/app/interfaces/pagedList';
 
@@ -19,6 +19,7 @@ export class DiagnosisListComponent {
   selectedPatient!: Patient;
   pagedDiagnosisList!: PagedList<Diagnosis>;
   pagination: [] = [];
+  
   pageNumber: number = 0;
   
   constructor(private _diagnosisService: DiagnosisService, private _route:ActivatedRoute, private _snackBar: MatSnackBar, private _patientService: PatientService) {
@@ -29,7 +30,7 @@ export class DiagnosisListComponent {
 
   ngOnInit(): void {
     this._patientService.getPatientById(this.patientId).pipe(
-      filter(z => z['id'] > 0),
+      filter(p => p.id > 0),
       switchMap(sourcePatient => {
         this.selectedPatient = sourcePatient;
         return this._diagnosisService.getByPatientId(sourcePatient.id);
@@ -50,10 +51,10 @@ export class DiagnosisListComponent {
     });
   }
 
-  changePage(pageNumber: number){
-    this.pageNumber = pageNumber;
+  changePage(pageNumberEvent: number){
+    this.pageNumber = pageNumberEvent;
     
-    this._diagnosisService.getByPatientId(this.patientId, pageNumber).subscribe({
+    this._diagnosisService.getByPatientId(this.patientId, this.pageNumber).subscribe({
       next: (result) => {
         this.diagnosis = [...result.content];
       },
@@ -61,10 +62,6 @@ export class DiagnosisListComponent {
         console.log(error.error.message)
       }
     })
-  }
-
-  toggleActiveClass() {
-
   }
 }
 

@@ -38,7 +38,7 @@ export class DiagnosisComponent {
 
   ngOnInit(): void {
     this._patientService.selectedPatient$.pipe(
-      filter(z => z['id'] > 0),
+      filter(z => z.id > 0),
       switchMap(sourcePatient => {
         this.selectedPatient = sourcePatient;
         return this._diagnosisService.getLastestByPatientId(sourcePatient.id);
@@ -52,7 +52,7 @@ export class DiagnosisComponent {
   onSubmit(): void {
     if (this.diagnosisForm.valid) {
       this.diagnosisItem = {...this.diagnosisForm.value};
-      this.diagnosisItem.patientId = 1;
+      this.diagnosisItem.patientId = this.selectedPatient.id;
       this.addDiagnosis(this.diagnosisItem);
     } else {
       this.diagnosisForm.markAllAsTouched();
