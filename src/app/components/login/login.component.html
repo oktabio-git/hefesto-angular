@@ -6,7 +6,7 @@
 <div class="container-fluid">
   <div class="row full-height">
     <div class="col-6 pt-5">
-      <form [formGroup]="loginForm" novalidate class="w-50 m-auto">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate class="w-50 m-auto">
         <div class="mb-3">
           <label class="form-label">Email</label>
           <input

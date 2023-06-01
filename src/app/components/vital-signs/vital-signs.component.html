@@ -1,0 +1,91 @@
+<app-navbar></app-navbar>
+<div class="container is-fluid">
+  <div class="row">
+    <div class="col mt-2">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/patients">Home</a></li>
+          <li class="breadcrumb-item active" aria-current="page">
+            {{ selectedPatient.name + " " + selectedPatient.lastName }}
+          </li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+  <div class="row py-3">
+    <div class="col">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-4">
+              <span class="card-text"> Blood type: AB+ </span>
+            </div>
+            <div class="col-4">
+              <span class="card-text">
+                Nss: {{ selectedPatient.socialSecurityNumber }}
+              </span>
+            </div>
+            <div class="col-4">
+              <span class="card-text">
+                Phone number: {{ selectedPatient.phone }}
+              </span>
+            </div>
+          </div>
+
+          <div class="row mt-2">
+            <div class="col-4">
+              <span class="card-text">
+                Birthdate: {{ selectedPatient.birthDate }}
+              </span>
+            </div>
+            <div class="col-4">
+              <span class="card-text"> Age: 30 </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template [ngIf]="vitalSigns.length < 1">
+    <div class="row show py3">
+      <div class="col d-flex justify-content-center align-items-center">
+        <p class="lead">No rows to show</p>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template [ngIf]="vitalSigns.length > 0">
+    <div class="row">
+      <div *ngFor="let item of vitalSigns" class="col-12">
+        <div class="card mb-3">
+          <div class="card-body p-2">
+            <div class="row ps-2">
+              <div class="col-2 ps-2">
+                <p class="small text-muted m-0">Temperature</p>
+                <p class="h6 m-0">{{ item.temperature }}</p>
+              </div>
+              <div class="col-4">
+                <p class="small text-muted m-0">Heart Rate</p>
+                <p class="h6 m-0 text-justify">{{ item.heartRate }}</p>
+              </div>
+              <div class="col-3">
+                <p class="small text-muted m-0">Blood Pressure</p>
+                <p class="h6 m-0">{{ item.systolic }} / {{ item.diastolic }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <app-pagination
+          [totalPages]="this.pagedVitalSignsList.totalPages"
+          (changePageEvent)="changePage($event)"
+        ></app-pagination>
+      </div>
+    </div>
+  </ng-template>
+</div>

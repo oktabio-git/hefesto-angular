@@ -1,4 +1,4 @@
-import { VitalSigns } from './vital-signs';
+import { VitalSigns } from './vitalSigns';
 
 export interface DialogData {
   signs: VitalSigns;

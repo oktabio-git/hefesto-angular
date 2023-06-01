@@ -1,10 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { DialogData } from 'src/app/interfaces/dialog-data';
-import { Patient } from 'src/app/interfaces/patient';
-import { VitalSigns } from 'src/app/interfaces/vital-signs';
-import { VitalSignsResp } from 'src/app/interfaces/vital-signs-resp';
+import { DialogData } from 'src/app/interfaces/dialogData';
+import { VitalSignsResp } from 'src/app/interfaces/vitalSignsResp';
 
 @Component({
   selector: 'vital-signs-dialog',

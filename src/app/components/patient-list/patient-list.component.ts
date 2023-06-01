@@ -10,7 +10,6 @@ import { Patient } from 'src/app/interfaces/patient';
 export class PatientListComponent implements OnInit {
   @Input() patients: Patient[] = [];
   @Output() patientEvent = new EventEmitter<Patient>();
-  myModal: any;
   patientForm: FormGroup = this._fb.group({
     name: ['', Validators.required],
     lastName: ['', Validators.required],
@@ -18,16 +17,15 @@ export class PatientListComponent implements OnInit {
     nss: ['', [Validators.required, Validators.minLength(6)]],
     phone: ['', [Validators.required, Validators.minLength(10)]],
   });
+  idSelected: number = 0;
 
   constructor(private _fb: FormBuilder) {}
 
   ngOnInit(): void {}
 
   onSubmit(): void {
-    // TODO: Use EventEmitter with form value
     if (this.patientForm.valid) {
     } else {
-      console.log(this.patientForm);
       this.patientForm.markAllAsTouched();
     }
   }

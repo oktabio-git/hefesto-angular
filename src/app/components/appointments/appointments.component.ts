@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Patient } from 'src/app/interfaces/patient';
-import { VitalSigns } from 'src/app/interfaces/vital-signs';
-import { VitalSignsResp } from 'src/app/interfaces/vital-signs-resp';
+import { VitalSigns } from 'src/app/interfaces/vitalSigns';
+import { VitalSignsResp } from 'src/app/interfaces/vitalSignsResp';
 import { ToastService } from 'src/app/services/toast.service';
 import { VitalSignsService } from 'src/app/services/vital-signs.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -14,7 +14,7 @@ import { VitalSignsDialogComponent } from '../dialogs/vital-signs-dialog-compone
 })
 export class AppointmentsComponent {
   @Input() patient!: Patient;
-  @Input() vSigns!: VitalSigns;
+  @Input() vitalSigns!: VitalSigns;
 
   constructor(
     private _vSignsService: VitalSignsService,
@@ -24,21 +24,21 @@ export class AppointmentsComponent {
 
   openDialog() {
     const dialogRef = this.dialog.open(VitalSignsDialogComponent, {
-      data: { signs: this.vSigns, update: false },
+      data: { signs: this.vitalSigns, update: false },
       width: '500px',
     });
 
     dialogRef.afterClosed().subscribe((result: VitalSignsResp) => {
       if (result) {
         this._vSignsService
-          .postVitalSigns(this.vSigns.appointmentId, result)
+          .postVitalSigns(this.vitalSigns.appointmentId, result)
           .subscribe({
             next: (res: VitalSigns) => {
               this._toastService.openSnackBar(
                 'Vital signs added successfully.',
                 'success'
               );
-              this.vSigns = res;
+              this.vitalSigns = res;
             },
             error: () => {
               this._toastService.openSnackBar(
@@ -53,19 +53,19 @@ export class AppointmentsComponent {
 
   openEditDialog() {
     const dialogRef = this.dialog.open(VitalSignsDialogComponent, {
-      data: { signs: this.vSigns, update: true },
+      data: { signs: this.vitalSigns, update: true },
       width: '500px',
     });
 
     dialogRef.afterClosed().subscribe((result: VitalSignsResp) => {
       if (result) {
-        this._vSignsService.updateVitalSigns(this.vSigns.id, result).subscribe({
+        this._vSignsService.updateVitalSigns(this.vitalSigns.id, result).subscribe({
           next: (res: VitalSigns) => {
             this._toastService.openSnackBar(
               'Vital signs added successfully.',
               'success'
             );
-            this.vSigns = res;
+            this.vitalSigns = res;
           },
           error: () => {
             this._toastService.openSnackBar(

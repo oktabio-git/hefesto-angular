@@ -1,13 +1,13 @@
 <div class="col-12">
   <div class="row">
     <div class="col-7">
-      <label *ngIf="vSigns; else nodata">
-        Vital Signs on <b>{{ vSigns.date | date : "longDate" }}</b>
+      <label *ngIf="vitalSigns; else nodata">
+        Vital Signs on <b>{{ vitalSigns.date | date : "longDate" }}</b>
       </label>
       <ng-template #nodata>No vital signs added yet.</ng-template>
     </div>
-    <div class="col-5 d-flex justify-content-end" *ngIf="vSigns">
-      <a class="fw-bold" href="">View List</a>
+    <div class="col-5 d-flex justify-content-end" *ngIf="vitalSigns">
+      <a class="fw-bold" [routerLink]="['/vital-signs', vitalSigns.patientId]">View List</a>
     </div>
   </div>
 
@@ -15,19 +15,19 @@
     <tbody>
       <tr>
         <th>Temperature</th>
-        <td>{{ vSigns.temperature || "N/A" }}</td>
+        <td>{{ vitalSigns.temperature || "N/A" }}</td>
       </tr>
       <tr>
         <th>Heart Rate</th>
-        <td>{{ vSigns.heartRate || "N/A" }}</td>
+        <td>{{ vitalSigns.heartRate || "N/A" }}</td>
       </tr>
       <tr>
         <th>Systolic</th>
-        <td>{{ vSigns.systolic || "N/A" }}</td>
+        <td>{{ vitalSigns.systolic || "N/A" }}</td>
       </tr>
       <tr>
         <th>Diastolic</th>
-        <td>{{ vSigns.diastolic || "N/A" }}</td>
+        <td>{{ vitalSigns.diastolic || "N/A" }}</td>
       </tr>
     </tbody>
   </table>
@@ -40,7 +40,7 @@
       New Vital Record
     </button>
     <button
-      *ngIf="vSigns"
+      *ngIf="vitalSigns"
       type="button"
       class="btn btn-outline-primary"
       (click)="openEditDialog()"

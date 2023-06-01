@@ -1,13 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Patient } from 'src/app/interfaces/patient';
-import { VitalSigns } from 'src/app/interfaces/vital-signs';
+import { VitalSigns } from 'src/app/interfaces/vitalSigns';
 import { PatientService } from 'src/app/services/patient.service';
 import { VitalSignsService } from 'src/app/services/vital-signs.service';
-import {
-  MatSnackBar,
-  MatSnackBarHorizontalPosition,
-  MatSnackBarVerticalPosition,
-} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-patient',
@@ -18,7 +13,7 @@ export class PatientComponent implements OnInit {
   patients: Patient[] = [];
   option: number = 0;
   patient!: Patient;
-  vSigns!: VitalSigns;
+  vitalSigns!: VitalSigns;
   show: boolean = true;
 
   constructor(
@@ -33,11 +28,11 @@ export class PatientComponent implements OnInit {
   }
 
   getPaitentData(patient: Patient): void {
-    this._vSignsService.getVitalSigns(patient.id).subscribe({
+    this._vSignsService.getPatientVitalSigns(patient.id).subscribe({
       next: (res: VitalSigns) => {
         this.patient = patient;
         this.option = 1;
-        this.vSigns = res;
+        this.vitalSigns = res;
       },
       error: () => {
         // INSERT ERROR TOASTR

@@ -7,14 +7,22 @@ import { Observable, map } from 'rxjs';
   providedIn: 'root'
 })
 export class PatientService {
-  private patientUrl: string = "http://localhost:8080/patients";
+  private patientUrl: string = "http://localhost:8080";
 
   constructor(private _http: HttpClient) { }
 
   getPatients(): Observable<Patient[]> {
-    return this._http.get(this.patientUrl).pipe(
+    return this._http.get(this.patientUrl + "/patients").pipe(
       map((response) => {
         return response as Patient[];
+      })
+    )
+  }
+
+  getPatient(id: number): Observable<Patient> {
+    return this._http.get(this.patientUrl + `/patients/${id}`).pipe(
+      map((response) => {
+        return response as Patient;
       })
     )
   }
